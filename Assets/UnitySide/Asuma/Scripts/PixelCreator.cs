@@ -21,11 +21,11 @@ public class PixelCreator : MonoBehaviour
 
         _pixelSizeRate = 1.0f;// ピクセルの倍率を仮に1.0fで設定 <--- ここを変更するとピクセルのサイズが変わる
 
-        // CreatePixel(0, 0, Color.red);// ピクセルを生成
-        // CreatePixel(1, 0, Color.black);// ピクセルを生成
-        // CreatePixel(2, 0, Color.blue);// ピクセルを生成
-        // CreatePixel(3, 0, Color.red);// ピクセルを生成
-        // CreatePixel(4, 0, Color.white);// ピクセルを生成
+        CreatePixel(0, 0, Color.red);// ピクセルを生成
+        CreatePixel(1, 0, Color.black);// ピクセルを生成
+        CreatePixel(2, 0, Color.blue);// ピクセルを生成
+        CreatePixel(3, 0, Color.red);// ピクセルを生成
+        CreatePixel(4, 0, Color.white);// ピクセルを生成
 
         // CreatePixelArt();// ピクセルアートを生成
     }
@@ -99,7 +99,8 @@ public class PixelCreator : MonoBehaviour
     /// <param name="color">色</param>
     private void CreatePixel(int x, int y, Color color)
     {
-        
+        GameObject pixel = Instantiate(_pixelPrefab, new Vector3(x * _pixelSizeRate, y * _pixelSizeRate, 0), Quaternion.identity);
+        pixel.GetComponent<Renderer>().material.color = color;
     }
 
     /// <summary>
