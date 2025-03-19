@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Asuma
+namespace Hinano
 {
     public class PixelCreator : MonoBehaviour
     {
