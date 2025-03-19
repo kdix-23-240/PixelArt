@@ -21,13 +21,14 @@ public class PixelCreator : MonoBehaviour
 
         _pixelSizeRate = 1.0f;// ピクセルの倍率を仮に1.0fで設定 <--- ここを変更するとピクセルのサイズが変わる
 
-        CreatePixel(0, 0, Color.red);// ピクセルを生成
-        CreatePixel(1, 0, Color.black);// ピクセルを生成
-        CreatePixel(2, 0, Color.blue);// ピクセルを生成
-        CreatePixel(3, 0, Color.red);// ピクセルを生成
-        CreatePixel(4, 0, Color.white);// ピクセルを生成
+        CreatePixel(0, 0, Color.red);// ピクセルを生成 <--- 見本、メソッドの使い方がわかったらこの行を消す
+        CreatePixel(1, 0, Color.black);// ピクセルを生成 <--- 見本、メソッドの使い方がわかったらこの行を消す
+        CreatePixel(2, 0, Color.blue);// ピクセルを生成 <--- 見本、メソッドの使い方がわかったらこの行を消す
+        CreatePixel(3, 0, Color.red);// ピクセルを生成 <--- 見本、メソッドの使い方がわかったらこの行を消す
+        CreatePixel(4, 0, Color.white);// ピクセルを生成 <--- 見本、メソッドの使い方がわかったらこの行を消す
+        CreatePixel(1, 1, Color.green);// ピクセルを生成 <--- 見本、メソッドの使い方がわかったらこの行を消す
 
-        // CreatePixelArt();// ピクセルアートを生成
+        // CreatePixelArt();// ピクセルアートを生成 <---  最終的にはここのコメントアウトを外す
     }
 
     private void SampleInitialize()
@@ -72,6 +73,7 @@ public class PixelCreator : MonoBehaviour
         };
     }
 
+    // ピクセルリストを選択
     private void SelectPixelList()
     {
         switch (_pixeListNum)
@@ -99,8 +101,9 @@ public class PixelCreator : MonoBehaviour
     /// <param name="color">色</param>
     private void CreatePixel(int x, int y, Color color)
     {
-        GameObject pixel = Instantiate(_pixelPrefab, new Vector3(x * _pixelSizeRate, y * _pixelSizeRate, 0), Quaternion.identity);
+        GameObject pixel = Instantiate(_pixelPrefab, new Vector3(x, y + 8, 0), Quaternion.identity);
         pixel.GetComponent<Renderer>().material.color = color;
+        pixel.transform.localScale = new Vector3(_pixelSizeRate, _pixelSizeRate, _pixelSizeRate);
     }
 
     /// <summary>
