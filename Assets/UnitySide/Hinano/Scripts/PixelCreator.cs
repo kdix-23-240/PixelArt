@@ -27,6 +27,7 @@ namespace Hinano
     public class PixelCreator : MonoBehaviour
     {
         [SerializeField] private GameObject _pixelPrefab;
+        [SerializeField] private GameObject _parentObject;
         // 横方向の最大幅（ワールド座標上）
         [SerializeField] private float _maxLimitWidth = 10.0f;
         // 縦方向の最大高さ（ワールド座標上）
@@ -190,7 +191,7 @@ namespace Hinano
         {
             float worldY = (y - (_height - 1)) * _pixelSizeRate + 18;// キューブ生成の位置を上に18に上げる
             Vector3 position = new Vector3(_offsetX + x * _pixelSizeRate, worldY, 0);
-            GameObject pixel = Instantiate(_pixelPrefab, position, Quaternion.identity);
+            GameObject pixel = Instantiate(_pixelPrefab, position, Quaternion.identity, _parentObject.transform);
             pixel.GetComponent<Renderer>().material.color = color;
             pixel.transform.localScale = new Vector3(_pixelSizeRate, _pixelSizeRate, _pixelSizeRate);
         }
