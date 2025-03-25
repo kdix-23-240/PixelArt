@@ -5,35 +5,35 @@ public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour, IP
 {
     [SerializeField] private T pooledPrefab;
     protected IObjectPool<T> _objectPool;
-    
-    [SerializeField] private bool _collectionCheck = true;
-    
-    [SerializeField] private int _defaultCapacity = 32;
-    [SerializeField] private int _maxSize = 100;
 
-    public virtual  void Initialize()
+    [SerializeField] private bool _collectionCheck = true;
+
+    [SerializeField] private int _defaultCapacity = 1024;
+    [SerializeField] private int _maxSize = 1024;
+
+    public virtual void Initialize()
     {
         _objectPool = new ObjectPool<T>(Create, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject,
             _collectionCheck, _defaultCapacity, _maxSize);
     }
-    
+
     protected virtual T Create()
     {
         T instance = Instantiate(pooledPrefab, transform.position, Quaternion.identity, transform);
         instance.ObjectPool = _objectPool;
         return instance;
     }
-    
+
     protected virtual void OnReleaseToPool(T pooledObject)
     {
         pooledObject.gameObject.SetActive(false);
     }
-    
+
     protected virtual void OnGetFromPool(T pooledObject)
     {
         pooledObject.gameObject.SetActive(true);
     }
-    
+
     protected virtual void OnDestroyPooledObject(T pooledObject)
     {
         pooledObject.Deactivate();

@@ -10,22 +10,26 @@ public class CubeObject : MonoBehaviour, IPooledObject<CubeObject>
         set => _objectPool = value;
     }
 
-    public void Initialize()
+    public void Initialize(int x, int y)
     {
-        StartCoroutine(DelayDeactivation(3f));
+        Activate(x, y);
     }
 
-    private IEnumerator DelayDeactivation(float seconds)
+    public void Activate(int x, int y)
     {
-        yield return new WaitForSeconds(seconds);
-        Deactivate();
+        transform.position = new Vector3(x, y, 0);
     }
 
     public void Deactivate()
     {
-        var rigidbody = GetComponent<Rigidbody>();
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.angularVelocity = Vector3.zero;
-        _objectPool.Release(this);
+        if (!gameObject.activeSelf) // すでに非アクティブならリリースしない
+        {
+            // Debug.LogWarning("このオブジェクトはすでにプールに戻されています: " + this.name);
+            return;
+        }
+
+        // Debug.Log("通過：Deactivate");
+        gameObject.SetActive(false); // オブジェクトを非表示にする
+        _objectPool.Release(this);   // プールに戻す
     }
 }
