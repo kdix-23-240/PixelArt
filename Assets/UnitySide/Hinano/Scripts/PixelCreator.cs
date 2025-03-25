@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 namespace Hinano
 {
@@ -34,6 +35,8 @@ namespace Hinano
         private int _width;// ピクセルアートの横幅
         private int _height;// ピクセルアートの縦幅
         [SerializeField] private float _pixeListNum;// どのピクセルリストを使用するかインスペクターで選択可能
+        private int _pixelArtCompleteTime;// ピクセルアートを生成するのにかかる時間
+        private float _delayTime;// キューブ生成の遅延時間
         private float _pixelSizeRate; // ピクセルのサイズ(倍率)
         private float _offsetX;     // 横方向のオフセット（中央寄せ用）
         private char[,] _pixelList;// ピクセルリスト
@@ -49,6 +52,10 @@ namespace Hinano
 
             _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
             _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
+
+            // ピクセルアートを生成するのにかかる時間
+            _pixelArtCompleteTime = 8 * (int)Math.Log(Math.Sqrt(_width * _height), 2);
+            _delayTime = (float)_pixelArtCompleteTime / (_width * _height);// キューブ生成の遅延時間を計算
 
             // ピクセルアートの横幅の最大値
             float hScale = _maxLimitWidth / _width;
@@ -221,8 +228,7 @@ namespace Hinano
                     }
 
                     CreatePixel(x, y, color);
-                    float delay = Random.Range(0.1f, 0.3f);
-                    yield return new WaitForSeconds(delay);
+                    yield return new WaitForSeconds(_delayTime);
                 }
             }
         }
