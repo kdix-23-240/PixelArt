@@ -224,11 +224,9 @@ namespace Hinano
                             case "[35m???": color = Colors.PURPLE; break;
                             case "[38;5;190m???": color = Colors.LIGHT_GREEN; break;
                             case "[33m???": color = Colors.YELLOW; break;
-                            // case "[35m???": color = Colors.MAGENTA; break;
-                            case "[36m???": color = Colors.CYAN; break;
                             case "[38;5;206m???": color = Colors.PINK; break;
                             // case "[32m???": color = Colors.GREY; break;
-                            // case "[36m???": color = Colors.LIGHT_BLUE; break;
+                            case "[36m???": color = Colors.LIGHT_BLUE; break;
                         }
                     }
                     else

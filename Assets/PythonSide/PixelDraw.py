@@ -8,8 +8,6 @@ if __name__ == "__main__":
     GREEN = "\033[32m"     # 緑
     YELLOW = "\033[33m"    # 黄
     BLUE = "\033[34m"      # 青
-    MAGENTA = "\033[35m"   # マゼンタ
-    CYAN = "\033[36m"      # シアン
     WHITE = "\033[37m"     # 白
     ORANGE = "\033[38;5;214m"  # オレンジ（ANSI 256色モード）
     PURPLE = "\033[35m"    # 紫
@@ -22,14 +20,12 @@ if __name__ == "__main__":
     b = GREEN + "■" + RESET
     c = YELLOW + "■" + RESET
     d = BLUE + "■" + RESET
-    e = MAGENTA + "■" + RESET
-    f = CYAN + "■" + RESET
-    g = WHITE + "■" + RESET
-    h = ORANGE + "■" + RESET
-    i = PURPLE + "■" + RESET
-    j = LIGHT_BLUE + "■" + RESET
-    k = PINK + "■" + RESET
-    l = LIGHT_GREEN + "■" + RESET
+    e = WHITE + "■" + RESET
+    f = ORANGE + "■" + RESET
+    g = PURPLE + "■" + RESET
+    h = LIGHT_BLUE + "■" + RESET
+    i = PINK + "■" + RESET
+    j = LIGHT_GREEN + "■" + RESET
 
     #リスト化
     ab=[a,a,a,b,b,b,c,c,c]
