@@ -383,9 +383,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pixelPrefab: {fileID: 142861523080447998, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
-  _maxLimitWidth: 15
+  _maxLimitWidth: 10
   _maxLimitHeight: 10
-  _pixeListNum: 3
+  _pixeListNum: 4
+  _pixelArtCompleteTime: 40
 --- !u!1 &2023647273
 GameObject:
   m_ObjectHideFlags: 0
