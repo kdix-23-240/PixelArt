@@ -41,14 +41,20 @@ namespace Hinano
         private char[,] _samplePixelList2;
         private char[,] _samplePixelList3;
         private char[,] _samplePixelList4;
+        private string[,] _samplePixelList5;
+        private PythonRunner _pythonRunner;
 
         void Start()
         {
+            _pythonRunner = new PythonRunner();
             SampleInitialize();// サンプルのピクセルリストを初期化
             SelectPixelList();// ピクセルリストを選択
 
-            _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
-            _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
+            // _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
+            // _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
+
+            _width = _samplePixelList5.GetLength(1);// ピクセルアートの横幅を取得
+            _height = _samplePixelList5.GetLength(0);// ピクセルアートの縦幅を取得
 
             // ピクセルアートの横幅の最大値
             float hScale = _maxLimitWidth / _width;
@@ -148,6 +154,8 @@ namespace Hinano
                 {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
 
             };
+
+            _samplePixelList5 = _pythonRunner.Run();
         }
 
         // ピクセルリストを選択
@@ -199,25 +207,52 @@ namespace Hinano
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    char pixelChar = _pixelList[y, x];
-                    Color color = Colors.WHITE;
-
-                    switch (pixelChar)
+                    Color color;
+                    if (_pixeListNum == 5)
                     {
-                        case 'r': color = Colors.RED; break;
-                        case 'g': color = Colors.GREEN; break;
-                        case 'b': color = Colors.BLUE; break;
-                        case 'w': color = Colors.WHITE; break;
-                        case 'k': color = Colors.BLACK; break;
-                        case 'o': color = Colors.ORANGE; break;
-                        case 'p': color = Colors.PURPLE; break;
-                        case 'l': color = Colors.LIGHT_GREEN; break;
-                        case 'y': color = Colors.YELLOW; break;
-                        case 'm': color = Colors.MAGENTA; break;
-                        case 'c': color = Colors.CYAN; break;
-                        case 'P': color = Colors.PINK; break;
-                        case 'G': color = Colors.GREY; break;
-                        case 'B': color = Colors.LIGHT_BLUE; break;
+                        string pixelString = _samplePixelList5[y, x];
+                        color = Colors.WHITE;
+
+                        switch (pixelString)
+                        {
+                            case "[31m???": color = Colors.RED; break;
+                            case "[32m???": color = Colors.GREEN; break;
+                            case "[34m???": color = Colors.BLUE; break;
+                            case "[37m???": color = Colors.WHITE; break;
+                            case "[30m???": color = Colors.BLACK; break;
+                            case "[38;5;214m???": color = Colors.ORANGE; break;
+                            case "[35m???": color = Colors.PURPLE; break;
+                            case "[38;5;190m???": color = Colors.LIGHT_GREEN; break;
+                            case "[33m???": color = Colors.YELLOW; break;
+                            // case "[35m???": color = Colors.MAGENTA; break;
+                            case "[36m???": color = Colors.CYAN; break;
+                            case "[38;5;206m???": color = Colors.PINK; break;
+                            // case "[32m???": color = Colors.GREY; break;
+                            // case "[36m???": color = Colors.LIGHT_BLUE; break;
+                        }
+                    }
+                    else
+                    {
+                        char pixelChar = _pixelList[y, x];
+                        color = Colors.WHITE;
+
+                        switch (pixelChar)
+                        {
+                            case 'r': color = Colors.RED; break;
+                            case 'g': color = Colors.GREEN; break;
+                            case 'b': color = Colors.BLUE; break;
+                            case 'w': color = Colors.WHITE; break;
+                            case 'k': color = Colors.BLACK; break;
+                            case 'o': color = Colors.ORANGE; break;
+                            case 'p': color = Colors.PURPLE; break;
+                            case 'l': color = Colors.LIGHT_GREEN; break;
+                            case 'y': color = Colors.YELLOW; break;
+                            case 'm': color = Colors.MAGENTA; break;
+                            case 'c': color = Colors.CYAN; break;
+                            case 'P': color = Colors.PINK; break;
+                            case 'G': color = Colors.GREY; break;
+                            case 'B': color = Colors.LIGHT_BLUE; break;
+                        }
                     }
 
                     CreatePixel(x, y, color);

@@ -3,14 +3,11 @@ using System.IO;
 using UnityEngine;
 
 // このスクリプトを実行すると、Pythonのスクリプトが実行される
-public class PythonRunner : MonoBehaviour
+public class PythonRunner
 {
     private string[,] _colorList;
-    void Start()
-    {
-        Run();
-    }
-    public void Run()
+
+    public string[,] Run()
     {
         ProcessStartInfo psi = new ProcessStartInfo()
         {
@@ -18,6 +15,7 @@ public class PythonRunner : MonoBehaviour
             Arguments = Application.dataPath + "/PythonSide/PixelDraw.py",
             UseShellExecute = false,       // シェル機能を使用しない
             RedirectStandardOutput = true, // 標準出力をリダイレクト
+            RedirectStandardError = true,  // 標準エラー出力をリダイレクト
             CreateNoWindow = true          // コンソール・ウィンドウを開かない
         };
 
@@ -43,13 +41,8 @@ public class PythonRunner : MonoBehaviour
                     }
                 }
             }
-
-            foreach(string color in _colorList)
-            {
-                UnityEngine.Debug.Log(color);
-            }
-
             process.WaitForExit();  // プロセスの終了を待つ
         }
+        return _colorList;
     }
 }
