@@ -317,7 +317,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1313943950}
-  - component: {fileID: 1313943949}
   - component: {fileID: 1313943951}
   m_Layer: 0
   m_Name: PixelArtCreator
@@ -326,20 +325,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1313943949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313943948}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20feaf67a75f64b69a21453d2e24b123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pixelPrefab: {fileID: 142861523080447998, guid: 797b8d78ad3c34c599f74c1220506069, type: 3}
-  _pixeListNum: 1
 --- !u!4 &1313943950
 Transform:
   m_ObjectHideFlags: 0
@@ -364,13 +349,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1313943948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134e6a208de8647969abade32fffb4f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d8f1a6fb6e4d47b6818769204c2909c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pooledPrefab: {fileID: 7826069954948570416, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
+  _collectionCheck: 1
+  _defaultCapacity: 1024
+  _maxSize: 1024
+  _poolManager: {fileID: 1313943948}
   _pixelPrefab: {fileID: 142861523080447998, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
   _maxLimitWidth: 10
   _maxLimitHeight: 10
   _pixeListNum: 5
+  _debagSpeedRate: 2
 --- !u!1 &2023647273
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +423,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a339c1833bac52469f4ffc2164ee9ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -32,7 +32,7 @@ if __name__ == "__main__":
     bc=[a,a,a,b,b,b,c,c,c]
     cd=[a,a,a,b,b,b,c,c,c]
     de=[a,a,a,b,b,b,c,c,c]
-    ef=[a,a,a,b,b,b,c,c,c]
+    ef=[a,a,a,e,e,e,c,c,c]
 
     #表示
     print(''.join(ab))
