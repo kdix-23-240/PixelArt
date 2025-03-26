@@ -30,18 +30,32 @@ if __name__ == "__main__":
     # ---------------------ここから---------------------------
     
     # ピクセルアート格納用の二次元配列を定義
-    list_width = 8
-    list_height = 7
+    list_width = 13
+    list_height = 20
     pixel_art = [[e]*list_width]*list_height # 12x18 の白いピクセルアート
 
     #リスト化
-    pixel_art[0] = [a,a,a,a,a,a,a,a]
-    pixel_art[1] = [b,b,b,b,b,b,b,b]
-    pixel_art[2] = [c,c,c,c,c,c,c,c]
-    pixel_art[3] = [d,d,d,d,d,d,d,d]
-    pixel_art[4] = [e,e,e,e,e,e,e,e]
-    pixel_art[5] = [f,f,f,f,f,f,f,f]
-    pixel_art[6] = [g,g,g,g,g,g,g,g]
+    pixel_art[0] = [a,a,c,c,c,c,a,a,g,g,g,g,g]
+    pixel_art[1] = [b,c,b,b,b,b,c,b,g,g,g,g,g]
+    pixel_art[2] = [c,c,c,c,c,c,c,c,g,g,g,g,g]
+    pixel_art[3] = [d,d,d,d,d,d,d,d,g,g,g,g,g]
+    pixel_art[4] = [e,e,f,e,e,f,e,e,g,g,g,g,g]
+    pixel_art[5] = [f,f,f,i,i,f,f,f,g,g,g,g,g]
+    pixel_art[6] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[7] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[8] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[9] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[10] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[11] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[12] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[13] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[14] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[15] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[16] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[17] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[18] = [g,g,g,j,j,g,g,g,g,g,g,g,g]
+    pixel_art[19] = [a,a,a,j,j,a,a,a,a,a,a,a,a]
+
     # ピクセルアートを表示
     for i in range(len(pixel_art)):
         for j in range(len(pixel_art[i])):
