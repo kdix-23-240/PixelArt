@@ -4,21 +4,6 @@ using UnityEngine.Pool;
 
 public class CubeObject : MonoBehaviour, IPooledObject<CubeObject>
 {
-    private int _id;
-    public int Id
-    {
-        get => _id;
-        set => _id = value;
-    }
-    private Color _color;
-    public Color Color
-    {
-        get => _color;
-        set {
-            _color = value;
-            GetComponent<Renderer>().material.color = _color;
-        }
-    }
     private IObjectPool<CubeObject> _objectPool;
     public IObjectPool<CubeObject> ObjectPool
     {

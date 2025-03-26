@@ -75,6 +75,11 @@ namespace Hinano
                 DeactiveAllPixels();
                 StartCoroutine(CreatePixelArtCoroutine());
             }
+            if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                DeactiveAllPixels();
+                ShowRandomPixelArt();
+            }
         }
 
         /// <summary>
@@ -83,8 +88,8 @@ namespace Hinano
         /// </summary>
         private void ResetCubeParam()
         {
-            _width = _pythonPixelList.GetLength(1);// ピクセルアートの横幅を取得
-            _height = _pythonPixelList.GetLength(0);// ピクセルアートの縦幅を取得
+            _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
+            _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
 
             // ピクセルアートを生成するのにかかる時間
             _pixelArtCompleteTime = 8 * (int)Math.Log(Math.Sqrt(_width * _height) * (1 / _debagSpeedRate), 2);
