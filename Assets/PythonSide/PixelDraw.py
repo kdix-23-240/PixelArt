@@ -16,17 +16,16 @@ if __name__ == "__main__":
     PURPLE = "\033[35m"    # 紫
 
     # 色付きの文字を表示
-    a = WHITE + "■" + RESET
-    b = BLACK + "■" + RESET
-    c = RED + "■" + RESET
+    a = RED + "■" + RESET
+    b = GREEN + "■" + RESET
+    c = YELLOW + "■" + RESET
     d = BLUE + "■" + RESET
-    e = GREEN + "■" + RESET
-    f = YELLOW + "■" + RESET
-    g = PINK + "■" + RESET
-    h = LIGHT_BLUE + "■" + RESET
-    i = LIGHT_GREEN + "■" + RESET
-    j = ORANGE + "■" + RESET
-    k = PURPLE + "■" + RESET
+    g = WHITE + "■" + RESET
+    h = ORANGE + "■" + RESET
+    i = PURPLE + "■" + RESET
+    j = LIGHT_BLUE + "■" + RESET
+    k = PINK + "■" + RESET
+    l = LIGHT_GREEN + "■" + RESET
 
     # ピクセルアートをつくる
     pixel_art = [   
