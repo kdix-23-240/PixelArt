@@ -237,7 +237,12 @@ namespace Hinano
         /// </summary>
         private void ShowRandomPixelArt()
         {
-            int index = UnityEngine.Random.Range(0, _pixelArtList.Count);
+            if(_pixelArtList.Count <= 1)
+            {
+                Debug.LogWarning("ピクセルアートが登録されていません");
+                return;
+            }
+            int index = UnityEngine.Random.Range(1, _pixelArtList.Count);
             ShowDesignetedPixelArt(index);
         }
 
