@@ -27,6 +27,8 @@ if __name__ == "__main__":
     i = PINK + "■" + RESET
     j = LIGHT_GREEN + "■" + RESET
 
+    # ---------------------ここから---------------------------
+    
     # ピクセルアート格納用の二次元配列を定義
     list_width = 8
     list_height = 7

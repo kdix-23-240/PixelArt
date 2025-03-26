@@ -34,16 +34,11 @@ namespace Hinano
         private float _maxLimitHeight = 10.0f;
         private int _width;// ピクセルアートの横幅
         private int _height;// ピクセルアートの縦幅
-        [SerializeField] private float _pixeListNum;// どのピクセルリストを使用するかインスペクターで選択可能
         private int _pixelArtCompleteTime;// ピクセルアートを生成するのにかかる時間
         private float _delayTime;// キューブ生成の遅延時間
         private float _pixelSizeRate; // ピクセルのサイズ(倍率)
         private float _offsetX;     // 横方向のオフセット（中央寄せ用）
         private char[,] _pixelList;// ピクセルリスト
-        private char[,] _samplePixelList1;// サンプルのピクセルリスト、Pythonと同期できるまでこれを使う
-        private char[,] _samplePixelList2;
-        private char[,] _samplePixelList3;
-        private char[,] _samplePixelList4;
         private string[,] _pythonPixelList;// Pythonから取得したピクセルリスト
         private PythonRunner _pythonRunner;// Pythonを実行するクラス
         [SerializeField] private float _debagSpeedRate;// デバッグ時のスピード倍率
@@ -57,7 +52,6 @@ namespace Hinano
         {
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
-            SampleInitialize();// サンプルのピクセルリストを初期化
             InitializePixelList(32, 32);// ピクセルリストを初期化
             SelectPixelList();// ピクセルリストを選択
             ResetCubeParam();// キューブのパラメータをリセット
@@ -72,14 +66,31 @@ namespace Hinano
             {
                 DeactiveAllPixels();
             }
-
             // エンターキーでピクセルリストを切り替え&ピクセルアートを生成
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                // _pixeListNum = (++_pixeListNum) % 4;
                 SelectPixelList();
                 DeactiveAllPixels();
                 StartCoroutine(CreatePixelArtCoroutine());
+            }
+        }
+
+        /// <summary>
+        /// ピクセルリストを初期化
+        /// ピクセルリストのサイズを指定して、全ての要素を初期化する
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="defaultChar"></param>
+        private void InitializePixelList(int width, int height, char defaultChar = 'w')
+        {
+            _pixelList = new char[height, width];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    _pixelList[y, x] = defaultChar;
+                }
             }
         }
 
@@ -114,145 +125,56 @@ namespace Hinano
         }
 
         /// <summary>
-        /// ピクセルリストを初期化
-        /// ピクセルリストのサイズを指定して、全ての要素を初期化する
+        /// ピクセルアートを生成する
+        /// キューブの生成にはCreatePixelArtCoroutineメソッドを使用
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="defaultChar"></param>
-        private void InitializePixelList(int width, int height, char defaultChar = 'w')
+        private IEnumerator CreatePixelArtCoroutine()
         {
-            _pixelList = new char[height, width];
-            for (int y = 0; y < height; y++)
+            ResetCubeParam();// 初期化
+            // 下の行（配列の最後）から上の行へ逆順に生成
+            for (int y = _height - 1; y >= 0; y--)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < _width; x++)
                 {
-                    _pixelList[y, x] = defaultChar;
+                    Color color;
+                    string pixelString = _pythonPixelList[y, x];
+                    color = Colors.WHITE;
+
+                    switch (pixelString)
+                    {
+                        case "[31m???": color = Colors.RED; break;
+                        case "[32m???": color = Colors.GREEN; break;
+                        case "[34m???": color = Colors.BLUE; break;
+                        case "[37m???": color = Colors.WHITE; break;
+                        case "[30m???": color = Colors.BLACK; break;
+                        case "[38;5;214m???": color = Colors.ORANGE; break;
+                        case "[35m???": color = Colors.PURPLE; break;
+                        case "[38;5;190m???": color = Colors.LIGHT_GREEN; break;
+                        case "[33m???": color = Colors.YELLOW; break;
+                        case "[38;5;206m???": color = Colors.PINK; break;
+                        case "[36m???": color = Colors.LIGHT_BLUE; break;
+                    }
+                    ActivatePixel(x, y, color);
+                    yield return new WaitForSeconds(_delayTime);
                 }
             }
         }
 
-        private void SampleInitialize()
-        {
-            // イタリアの国旗をイメージ
-            _samplePixelList1 = new char[8, 12]
-            {
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-                {'r','r','r','r','w','w','w','w','g','g','g','g'},
-            };
-
-            // 日本の国旗をイメージ
-            _samplePixelList2 = new char[8, 12]
-            {
-                {'w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','r','r','w','w','w','w','w'},
-                {'w','w','w','w','r','r','r','r','w','w','w','w'},
-                {'w','w','w','r','r','r','r','r','r','w','w','w'},
-                {'w','w','w','r','r','r','r','r','r','w','w','w'},
-                {'w','w','w','w','r','r','r','r','w','w','w','w'},
-                {'w','w','w','w','w','r','r','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w'},
-            };
-
-            // スイスの国旗をイメージ
-            _samplePixelList3 = new char[8, 8]
-            {
-                {'w','w','w','r','r','w','w','w'},
-                {'w','w','w','r','r','w','w','w'},
-                {'w','w','w','r','r','w','w','w'},
-                {'r','r','r','r','r','r','r','r'},
-                {'r','r','r','r','r','r','r','r'},
-                {'w','w','w','r','r','w','w','w'},
-                {'w','w','w','r','r','w','w','w'},
-                {'w','w','w','r','r','w','w','w'},
-            };
-
-            // test用のサンプル（配列サイズ：[32,32]）
-            _samplePixelList4 = new char[32, 32]
-            {
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','k','k','k','k','k','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','k','k','o','o','o','o','o','k','w','w','w','w'},
-                {'w','w','w','w','w','w','w','k','k','w','w','w','w','k','k','k','w','w','w','k','o','o','o','o','o','y','y','o','k','w','w','w'},
-                {'w','w','w','w','w','w','k','o','k','w','w','w','k','o','o','o','k','k','k','k','k','k','o','o','o','o','y','y','k','w','w','w'},
-                {'w','w','w','w','w','w','k','o','k','w','w','w','k','k','o','o','o','o','k','o','o','o','k','k','o','o','k','o','o','k','w','w'},
-                {'w','w','w','w','w','k','o','k','w','w','w','k','o','k','k','o','o','o','k','o','p','p','o','o','k','k','w','k','o','k','w','w'},
-                {'w','w','w','w','w','k','o','k','w','w','k','o','o','k','w','k','o','o','o','k','p','p','p','p','o','o','k','k','o','o','k','w'},
-                {'w','w','w','w','k','o','k','k','k','k','o','o','k','w','w','w','k','o','k','k','k','p','p','p','p','p','o','o','k','o','k','w'},
-                {'w','w','w','w','k','o','o','o','k','o','o','k','k','k','w','w','k','k','o','o','k','k','p','p','p','p','p','p','o','k','k','w'},
-                {'w','w','w','k','o','o','o','o','o','o','k','o','o','o','k','k','o','o','o','o','k','p','k','p','p','p','p','p','p','o','k','w'},
-                {'w','w','w','k','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o','p','p','p','p','p','k','k','k','k','k','w'},
-                {'w','w','w','k','o','o','o','o','k','o','o','k','k','o','o','o','o','o','o','o','o','o','k','o','k','k','o','o','o','o','k','w'},
-                {'w','w','k','o','o','o','o','k','w','o','o','k','w','k','o','o','o','o','k','o','k','o','k','o','o','o','k','o','o','k','w','w'},
-                {'w','k','o','o','o','o','k','k','w','o','k','w','w','w','k','o','o','k','w','k','o','o','k','o','o','o','k','o','o','k','w','w'},
-                {'w','k','o','o','o','o','o','o','k','k','w','w','w','k','o','k','k','o','o','o','o','k','o','o','o','o','o','k','k','w','w','w'},
-                {'w','w','k','o','o','o','k','k','w','w','w','w','w','k','o','o','k','w','o','o','k','o','o','o','o','o','o','k','w','w','w','w'},
-                {'w','w','w','k','k','k','w','w','w','w','w','w','w','w','k','o','o','k','k','k','o','k','o','o','o','o','o','k','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','k','o','k','k','y','y','y','k','o','o','o','o','o','k','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','k','k','k','k','k','k','y','k','o','o','o','o','o','k','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','k','k','k','o','o','o','k','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','k','w','o','w','o','k','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','k','k','k','k','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-                {'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
-
-            };
-        }
-
-        // ピクセルリストを選択
+        /// <summary>
+        /// サンプルのピクセルリストを初期化
+        /// Pythonで制作したピクセルアートのリストを使用
+        /// </summary>
         private void SelectPixelList()
         {
-            switch (_pixeListNum)
-            {
-                case 0:
-                    _pixelList = _samplePixelList1;
-                    break;
-                case 1:
-                    _pixelList = _samplePixelList2;
-                    break;
-                case 2:
-                    _pixelList = _samplePixelList3;
-                    break;
-                case 3:
-                    _pixelList = _samplePixelList4;
-                    break;
-                case 5:
-                    _pythonPixelList = _pythonRunner.Run();
-                    break;
-                default:
-                    _pixelList = _samplePixelList1;
-                    break;
-            }
+            _pythonPixelList = _pythonRunner.Run();
         }
 
         /// <summary>
-        /// 1ピクセルのキューブを生成する
+        /// 指定された座標にピクセルをアクティブにする
         /// </summary>
-        /// <param name="x">x座標</param>
-        /// <param name="y">y座標</param>
-        /// <param name="color">色</param>
-        private void CreatePixel(int x, int y, Color color)
-        {
-            float worldY = (y - (_height - 1)) * _pixelSizeRate + 18;// キューブ生成の位置を上に18に上げる
-            Vector3 position = new Vector3(_offsetX + x * _pixelSizeRate, worldY, 0);
-            GameObject pixel = Instantiate(_pixelPrefab, position, Quaternion.identity);
-            pixel.GetComponent<Renderer>().material.color = color;
-            pixel.transform.localScale = new Vector3(_pixelSizeRate, _pixelSizeRate, _pixelSizeRate);
-        }
-
+        /// <param name="x">生成x座標</param>
+        /// <param name="y">生成y座標</param>
+        /// <param name="color">設定する色</param>
         private void ActivatePixel(int x, int y, Color color)
         {
             DebugLog("ActivatePixel");
@@ -270,15 +192,11 @@ namespace Hinano
         }
 
         /// <summary>
-        /// 1ピクセルのキューブを非アクティブにする
-        /// _objectPool.Get()のDeactivate()を呼び出す
+        /// ピクセルを非アクティブにする
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
         private void DeactivatePixel()
         {
             DebugLog("DeactiveAllPixels");
-
             // PixelArtCreatorオブジェクトの子要素をすべて取得
             foreach (Transform child in transform)
             {
@@ -292,69 +210,8 @@ namespace Hinano
         }
 
         /// <summary>
-        /// ピクセルアートを生成する
-        /// キューブの生成にはCreatePixelArtCoroutineメソッドを使用
+        /// 全てのピクセルを非アクティブにする
         /// </summary>
-        private IEnumerator CreatePixelArtCoroutine()
-        {
-            ResetCubeParam();// 初期化
-            // 下の行（配列の最後）から上の行へ逆順に生成
-            for (int y = _height - 1; y >= 0; y--)
-            {
-                for (int x = 0; x < _width; x++)
-                {
-                    Color color;
-                    if (_pixeListNum == 5)
-                    {
-                        string pixelString = _pythonPixelList[y, x];
-                        color = Colors.WHITE;
-
-                        switch (pixelString)
-                        {
-                            case "[31m???": color = Colors.RED; break;
-                            case "[32m???": color = Colors.GREEN; break;
-                            case "[34m???": color = Colors.BLUE; break;
-                            case "[37m???": color = Colors.WHITE; break;
-                            case "[30m???": color = Colors.BLACK; break;
-                            case "[38;5;214m???": color = Colors.ORANGE; break;
-                            case "[35m???": color = Colors.PURPLE; break;
-                            case "[38;5;190m???": color = Colors.LIGHT_GREEN; break;
-                            case "[33m???": color = Colors.YELLOW; break;
-                            case "[38;5;206m???": color = Colors.PINK; break;
-                            case "[36m???": color = Colors.LIGHT_BLUE; break;
-                        }
-                    }
-                    else
-                    {
-                        char pixelChar = _pixelList[y, x];
-                        color = Colors.WHITE;
-
-                        switch (pixelChar)
-                        {
-                            case 'r': color = Colors.RED; break;
-                            case 'g': color = Colors.GREEN; break;
-                            case 'b': color = Colors.BLUE; break;
-                            case 'w': color = Colors.WHITE; break;
-                            case 'k': color = Colors.BLACK; break;
-                            case 'o': color = Colors.ORANGE; break;
-                            case 'p': color = Colors.PURPLE; break;
-                            case 'l': color = Colors.LIGHT_GREEN; break;
-                            case 'y': color = Colors.YELLOW; break;
-                            case 'm': color = Colors.MAGENTA; break;
-                            case 'c': color = Colors.CYAN; break;
-                            case 'P': color = Colors.PINK; break;
-                            case 'G': color = Colors.GREY; break;
-                            case 'B': color = Colors.LIGHT_BLUE; break;
-                        }
-                    }
-
-
-                    ActivatePixel(x, y, color);
-                    yield return new WaitForSeconds(_delayTime);
-                }
-            }
-        }
-
         private void DeactiveAllPixels()
         {
             DebugLog("DeactiveAllPixels");
