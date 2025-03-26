@@ -61,7 +61,6 @@ namespace Hinano
 =======
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
-            SampleInitialize();// サンプルのピクセルリストを初期化
             InitializePixelList(32, 32);// ピクセルリストを初期化
 >>>>>>> f2254d1 (クイズ実装用のリファクタ準備)
             SelectPixelList();// ピクセルリストを選択
@@ -87,6 +86,25 @@ namespace Hinano
             {
                 DeactiveAllPixels();
                 ShowRandomPixelArt();
+            }
+        }
+
+        /// <summary>
+        /// ピクセルリストを初期化
+        /// ピクセルリストのサイズを指定して、全ての要素を初期化する
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="defaultChar"></param>
+        private void InitializePixelList(int width, int height, char defaultChar = 'w')
+        {
+            _pixelList = new char[height, width];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    _pixelList[y, x] = defaultChar;
+                }
             }
         }
 
