@@ -53,6 +53,7 @@ namespace Hinano
 
         void Start()
         {
+            _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
             _pixelArtList = new List<PixelArt>();
 
