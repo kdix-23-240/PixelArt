@@ -30,13 +30,13 @@ if __name__ == "__main__":
 
 
     # ピクセルアートをつくる
-    pixel_art = [   
-                [a,a,a,a,a,a],
-                [a,a,a,a,a,a],
-                [a,a,a,a,a,a],
-                [a,a,a,a,a,a],
-                [a,a,a,a,a,a],
-                [a,a,a,a,a,a],
+    pixel_art = [ 
+                [e,e,e,e,e,e],
+                [e,e,e,e,e,e],  
+                [e,e,e,e,e,e],
+                [e,e,e,e,e,e],
+                [e,e,e,e,e,e],
+                [e,e,e,e,e,e],
                 ]
 
     # ピクセルアートを表示
