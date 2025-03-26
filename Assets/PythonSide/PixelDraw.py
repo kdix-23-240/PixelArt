@@ -27,10 +27,23 @@ if __name__ == "__main__":
     i = PINK + "■" + RESET
     j = LIGHT_GREEN + "■" + RESET
 
+<<<<<<< HEAD
     # ピクセルアート格納用の二次元配列を定義
     list_width = 8
     list_height = 7
     pixel_art = [[e]*list_width]*list_height # 12x18 の白いピクセルアート
+=======
+    #リスト化
+    ab=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    bc=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    cd=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    de=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    ef=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    fg=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    gh=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    hi=[a,a,a,b,b,b,c,c,c,g,g,g,i,i,i,j,j,j]
+    
+>>>>>>> e241ba9 (pullした内容の動作確認&調整)
 
     #リスト化
     pixel_art[0] = [a,a,a,a,a,a,a,a]

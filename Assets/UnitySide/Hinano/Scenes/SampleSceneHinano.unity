@@ -332,8 +332,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1313943950}
-  - component: {fileID: 1313943949}
-  - component: {fileID: 1313943951}
   - component: {fileID: 1313943952}
   m_Layer: 0
   m_Name: PixelArtCreator
@@ -342,20 +340,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1313943949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313943948}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20feaf67a75f64b69a21453d2e24b123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pixelPrefab: {fileID: 142861523080447998, guid: 797b8d78ad3c34c599f74c1220506069, type: 3}
-  _pixeListNum: 1
 --- !u!4 &1313943950
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +355,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &1313943951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134e6a208de8647969abade32fffb4f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+>>>>>>> e241ba9 (pullした内容の動作確認&調整)
 --- !u!114 &1313943952
 MonoBehaviour:
   m_ObjectHideFlags: 0
