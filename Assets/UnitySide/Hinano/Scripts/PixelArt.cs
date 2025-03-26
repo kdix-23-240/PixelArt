@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class PixelArt
 {
     private string[,] _pixelArt;
