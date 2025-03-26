@@ -56,9 +56,6 @@ namespace Hinano
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
             _pixelArtList = new List<PixelArt>();
-
-            _poolManager = this.gameObject;
-            _pythonRunner = new PythonRunner();
 <<<<<<< HEAD
 =======
             _poolManager = this.gameObject;
