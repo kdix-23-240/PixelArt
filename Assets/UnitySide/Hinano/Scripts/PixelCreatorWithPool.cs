@@ -57,6 +57,12 @@ namespace Hinano
 
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
+<<<<<<< HEAD
+=======
+            _poolManager = this.gameObject;
+            SampleInitialize();// サンプルのピクセルリストを初期化
+            InitializePixelList(32, 32);// ピクセルリストを初期化
+>>>>>>> f2254d1 (クイズ実装用のリファクタ準備)
             SelectPixelList();// ピクセルリストを選択
             ResetCubeParam();// キューブのパラメータをリセット
         }
