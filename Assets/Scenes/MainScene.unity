@@ -357,7 +357,7 @@ MonoBehaviour:
   _defaultCapacity: 1024
   _maxSize: 1024
   _pixelPrefab: {fileID: 142861523080447998, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
-  _debagSpeedRate: 2
+  _debagSpeedRate: 1
 --- !u!1 &2023647273
 GameObject:
   m_ObjectHideFlags: 0
