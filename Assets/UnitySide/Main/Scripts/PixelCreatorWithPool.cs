@@ -246,6 +246,6 @@ public class PixelCreatorWithPool : PoolManager<CubeObject>
 
     private void DebugLog(string message)
     {
-        Debug.Log(message);
+        // Debug.Log(message);
     }
 }

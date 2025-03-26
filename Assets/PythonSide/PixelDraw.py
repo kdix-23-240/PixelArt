@@ -15,20 +15,6 @@ if __name__ == "__main__":
     ORANGE = "\033[38;5;214m"  # オレンジ（ANSI 256色モード）
     PURPLE = "\033[35m"    # 紫
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     # 色付きの文字を表示
     a = WHITE + "■" + RESET
     b = BLACK + "■" + RESET
@@ -41,18 +27,16 @@ if __name__ == "__main__":
     i = LIGHT_GREEN + "■" + RESET
     j = ORANGE + "■" + RESET
     k = PURPLE + "■" + RESET
-    
-    # ピクセルアート格納用の二次元配列を定義
-    list_width = 5 
-    list_height = 5
-    pixel_art = [[e]*list_width]*list_height
 
-    #リスト化
-    pixel_art = [   [f,f,f,f,f],
-                    [f,b,f,b,f],
-                    [f,b,f,b,f],
-                    [g,f,f,f,g],
-                    [f,b,b,b,f]
+    # ピクセルアートをつくる
+    pixel_art = [   
+                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a,a],
                 ]
 
     # ピクセルアートを表示
