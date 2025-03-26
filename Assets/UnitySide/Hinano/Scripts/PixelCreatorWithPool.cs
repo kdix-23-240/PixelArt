@@ -26,12 +26,12 @@ namespace Hinano
 
     public class PixelCreatorWithPool : PoolManager<CubeObject>
     {
-        [SerializeField] private GameObject _poolManager;// ObjectPoolを管理するオブジェクト
+        private GameObject _poolManager;// ObjectPoolを管理するオブジェクト
         [SerializeField] private GameObject _pixelPrefab;// 生成するキューブのプレハブ
         // 横方向の最大幅（ワールド座標上）
-        [SerializeField] private float _maxLimitWidth = 10.0f;
+        private float _maxLimitWidth = 10.0f;
         // 縦方向の最大高さ（ワールド座標上）
-        [SerializeField] private float _maxLimitHeight = 10.0f;
+        private float _maxLimitHeight = 10.0f;
         private int _width;// ピクセルアートの横幅
         private int _height;// ピクセルアートの縦幅
         [SerializeField] private float _pixeListNum;// どのピクセルリストを使用するかインスペクターで選択可能
@@ -53,6 +53,7 @@ namespace Hinano
 
         void Start()
         {
+            _poolManager = this.gameObject;
             SampleInitialize();// サンプルのピクセルリストを初期化
             InitializePixelList(32, 32);// ピクセルリストを初期化
             SelectPixelList();// ピクセルリストを選択
