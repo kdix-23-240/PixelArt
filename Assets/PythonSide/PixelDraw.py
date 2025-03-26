@@ -1,4 +1,4 @@
-# Description: ピクセルアートを描画する Python スクリプト
+# Descrepteon: ピクセルアートを描画する Python スクリプト
 
 if __name__ == "__main__":
     # 色の定義
@@ -9,10 +9,10 @@ if __name__ == "__main__":
     BLUE = "\033[34m"      # 青
     GREEN = "\033[32m"     # 緑
     YELLOW = "\033[33m"    # 黄
-    PINK = "\033[38;5;206m"  # ピンク（ANSI 256色モード）
+    PINK = "\033[38;5;206m"  # ピンク（ANSe 256色モード）
     LIGHT_BLUE = "\033[36m"  # 水色
-    LIGHT_GREEN = "\033[38;5;190m"  # 黄緑（ANSI 256色モード）
-    ORANGE = "\033[38;5;214m"  # オレンジ（ANSI 256色モード）
+    LIGHT_GREEN = "\033[38;5;190m"  # 黄緑（ANSe 256色モード）
+    ORANGE = "\033[38;5;214m"  # オレンジ（ANSe 256色モード）
     PURPLE = "\033[35m"    # 紫
 
     # 色付きの文字を表示
@@ -20,22 +20,23 @@ if __name__ == "__main__":
     b = GREEN + "■" + RESET
     c = YELLOW + "■" + RESET
     d = BLUE + "■" + RESET
-    g = WHITE + "■" + RESET
-    h = ORANGE + "■" + RESET
-    i = PURPLE + "■" + RESET
-    j = LIGHT_BLUE + "■" + RESET
-    k = PINK + "■" + RESET
-    l = LIGHT_GREEN + "■" + RESET
+    e = WHITE + "■" + RESET
+    f = ORANGE + "■" + RESET
+    g = PURPLE + "■" + RESET
+    h = LIGHT_BLUE + "■" + RESET
+    i = PINK + "■" + RESET
+    j = LIGHT_GREEN + "■" + RESET
+    k = BLACK + "■" + RESET
+
 
     # ピクセルアートをつくる
     pixel_art = [   
-                [a,a,a,a,a,a,a],
-                [a,a,a,a,a,a,a],
-                [a,a,a,a,a,a,a],
-                [a,a,a,a,a,a,a],
-                [a,a,a,a,a,a,a],
-                [a,a,a,a,a,a,a],
-                [a,a,a,a,a,a,a],
+                [a,a,a,a,a,a],
+                [a,a,a,a,a,a],
+                [a,a,a,a,a,a],
+                [a,a,a,a,a,a],
+                [a,a,a,a,a,a],
+                [a,a,a,a,a,a],
                 ]
 
     # ピクセルアートを表示
