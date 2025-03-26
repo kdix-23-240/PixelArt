@@ -1,17 +1,10 @@
-using UnityEngine;
-
-public class PixelArt : MonoBehaviour
+public class PixelArt
 {
-    private int _id;
-    public int Id
+    private string[,] _pixelArt;
+    public string[,] Data => _pixelArt;
+
+    public PixelArt(string[,] pixelArt)
     {
-        get => _id;
-        set => _id = value;
-    }
-    private string _name;
-    public string Name
-    {
-        get => _name;
-        set => _name = value;
+        _pixelArt = pixelArt;
     }
 }

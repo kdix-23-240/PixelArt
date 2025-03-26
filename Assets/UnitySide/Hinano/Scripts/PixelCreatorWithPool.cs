@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 namespace Hinano
 {
@@ -38,10 +39,12 @@ namespace Hinano
         private float _delayTime;// キューブ生成の遅延時間
         private float _pixelSizeRate; // ピクセルのサイズ(倍率)
         private float _offsetX;     // 横方向のオフセット（中央寄せ用）
-        private char[,] _pixelList;// ピクセルリスト
-        private string[,] _pythonPixelList;// Pythonから取得したピクセルリスト
+        private string[,] _pixelList;// Pythonから取得したピクセルリスト
         private PythonRunner _pythonRunner;// Pythonを実行するクラス
         [SerializeField] private float _debagSpeedRate;// デバッグ時のスピード倍率
+
+        private PixelArt _pixelArt;// ピクセルアートのデータ
+        private List<PixelArt> _pixelArtList;// ピクセルアートのリスト
 
         private void Awake()
         {
@@ -50,47 +53,33 @@ namespace Hinano
 
         void Start()
         {
+            _pixelArtList = new List<PixelArt>();
+
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
-            InitializePixelList(32, 32);// ピクセルリストを初期化
             SelectPixelList();// ピクセルリストを選択
             ResetCubeParam();// キューブのパラメータをリセット
-            StartCoroutine(CreatePixelArtCoroutine());// キューブ生成のタイミングをずらしたバージョン
         }
 
         void Update()
         {
             // デバッグ用のキー入力
             // スペースキーでキューブを非アクティブにする
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 DeactiveAllPixels();
             }
             // エンターキーでピクセルリストを切り替え&ピクセルアートを生成
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 SelectPixelList();
                 DeactiveAllPixels();
                 StartCoroutine(CreatePixelArtCoroutine());
             }
-        }
-
-        /// <summary>
-        /// ピクセルリストを初期化
-        /// ピクセルリストのサイズを指定して、全ての要素を初期化する
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="defaultChar"></param>
-        private void InitializePixelList(int width, int height, char defaultChar = 'w')
-        {
-            _pixelList = new char[height, width];
-            for (int y = 0; y < height; y++)
+            if(Input.GetKeyDown(KeyCode.Alpha3))
             {
-                for (int x = 0; x < width; x++)
-                {
-                    _pixelList[y, x] = defaultChar;
-                }
+                DeactiveAllPixels();
+                ShowRandomPixelArt();
             }
         }
 
@@ -100,8 +89,8 @@ namespace Hinano
         /// </summary>
         private void ResetCubeParam()
         {
-            _width = _pythonPixelList.GetLength(1);// ピクセルアートの横幅を取得
-            _height = _pythonPixelList.GetLength(0);// ピクセルアートの縦幅を取得
+            _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
+            _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
 
             // ピクセルアートを生成するのにかかる時間
             _pixelArtCompleteTime = 8 * (int)Math.Log(Math.Sqrt(_width * _height) * (1 / _debagSpeedRate), 2);
@@ -137,7 +126,7 @@ namespace Hinano
                 for (int x = 0; x < _width; x++)
                 {
                     Color color;
-                    string pixelString = _pythonPixelList[y, x];
+                    string pixelString = _pixelList[y, x];
                     color = Colors.WHITE;
 
                     switch (pixelString)
@@ -161,12 +150,23 @@ namespace Hinano
         }
 
         /// <summary>
+        /// ピクセルアートをリストに登録
+        /// </summary>
+        /// <param name="pixelList"></param>
+        private void RegisterPixelArtList(string[,] pixelList)
+        {
+            _pixelArt = new PixelArt(pixelList);
+            _pixelArtList.Add(_pixelArt);
+        }
+
+        /// <summary>
         /// サンプルのピクセルリストを初期化
         /// Pythonで制作したピクセルアートのリストを使用
         /// </summary>
         private void SelectPixelList()
         {
-            _pythonPixelList = _pythonRunner.Run();
+            _pixelList = _pythonRunner.Run();
+            RegisterPixelArtList(_pixelList);
         }
 
         /// <summary>
@@ -218,9 +218,33 @@ namespace Hinano
             DeactivatePixel();
         }
 
+    /// <summary>
+    /// 指定されたインデックスのピクセルアートを表示
+    /// </summary>
+    /// <param name="index"></param>
+        private void ShowDesignetedPixelArt(int index)
+        {
+            if (index < 0 || index >= _pixelArtList.Count)
+            {
+                Debug.LogWarning("指定されたインデックスが範囲外です");
+                return;
+            }
+            _pixelList = _pixelArtList[index].Data;
+            StartCoroutine(CreatePixelArtCoroutine());
+        }
+
+        /// <summary>
+        /// ランダムなピクセルアートを表示
+        /// </summary>
+        private void ShowRandomPixelArt()
+        {
+            int index = UnityEngine.Random.Range(0, _pixelArtList.Count);
+            ShowDesignetedPixelArt(index);
+        }
+
         private void DebugLog(string message)
         {
-            // Debug.Log(message);
+            Debug.Log(message);
         }
     }
 }
