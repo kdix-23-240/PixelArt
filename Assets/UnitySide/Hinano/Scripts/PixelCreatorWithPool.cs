@@ -61,8 +61,6 @@ namespace Hinano
 =======
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
-            InitializePixelList(32, 32);// ピクセルリストを初期化
->>>>>>> f2254d1 (クイズ実装用のリファクタ準備)
             SelectPixelList();// ピクセルリストを選択
             ResetCubeParam();// キューブのパラメータをリセット
         }
@@ -101,10 +99,8 @@ namespace Hinano
             _pixelList = new char[height, width];
             for (int y = 0; y < height; y++)
             {
-                for (int x = 0; x < width; x++)
-                {
-                    _pixelList[y, x] = defaultChar;
-                }
+                DeactiveAllPixels();
+                ShowRandomPixelArt();
             }
         }
 
@@ -114,8 +110,8 @@ namespace Hinano
         /// </summary>
         private void ResetCubeParam()
         {
-            _width = _pythonPixelList.GetLength(1);// ピクセルアートの横幅を取得
-            _height = _pythonPixelList.GetLength(0);// ピクセルアートの縦幅を取得
+            _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
+            _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
 
             // ピクセルアートを生成するのにかかる時間
             _pixelArtCompleteTime = 8 * (int)Math.Log(Math.Sqrt(_width * _height) * (1 / _debagSpeedRate), 2);

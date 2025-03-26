@@ -30,8 +30,8 @@ if __name__ == "__main__":
     # ---------------------ここから---------------------------
     
     # ピクセルアート格納用の二次元配列を定義
-    list_width = 8
-    list_height = 7
+    list_width = 3
+    list_height = 5
     pixel_art = [[e]*list_width]*list_height # 12x18 の白いピクセルアート
 
     #リスト化
