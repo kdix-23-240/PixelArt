@@ -355,6 +355,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+--- !u!114 &1313943951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313943948}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134e6a208de8647969abade32fffb4f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> 244cd31 (動的変化可能に変更)
 --- !u!114 &1313943952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +387,10 @@ MonoBehaviour:
   _defaultCapacity: 1024
   _maxSize: 1024
   _pixelPrefab: {fileID: 142861523080447998, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
+<<<<<<< HEAD
+=======
+  _pixeListNum: 5
+>>>>>>> 244cd31 (動的変化可能に変更)
   _debagSpeedRate: 1
 --- !u!1 &2023647273
 GameObject:
