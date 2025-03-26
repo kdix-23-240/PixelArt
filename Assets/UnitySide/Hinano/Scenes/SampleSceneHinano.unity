@@ -383,18 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134e6a208de8647969abade32fffb4f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolManager: {fileID: 0}
-  _pixelPrefab: {fileID: 142861523080447998, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
-  _parentObject: {fileID: 0}
-  _maxLimitWidth: 10
-  _maxLimitHeight: 10
-  _width: 0
-  _height: 0
-  _pixeListNum: 2
-  _pixelArtCompleteTime: 0
-  _delayTime: 0
-  _pixelSizeRate: 0
-  _offsetX: 0
 --- !u!114 &1313943952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,11 +399,8 @@ MonoBehaviour:
   _collectionCheck: 1
   _defaultCapacity: 1024
   _maxSize: 1024
-  _poolManager: {fileID: 1313943948}
   _pixelPrefab: {fileID: 142861523080447998, guid: ff92cd02e52914d10bff3949377c9e23, type: 3}
-  _maxLimitWidth: 10
-  _maxLimitHeight: 10
-  _pixeListNum: 3
+  _pixeListNum: 5
   _debagSpeedRate: 1
 --- !u!1 &2023647273
 GameObject:

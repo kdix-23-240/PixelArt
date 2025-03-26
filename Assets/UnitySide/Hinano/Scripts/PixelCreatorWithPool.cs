@@ -44,6 +44,8 @@ namespace Hinano
         private char[,] _samplePixelList2;
         private char[,] _samplePixelList3;
         private char[,] _samplePixelList4;
+        private string[,] _pythonPixelList;// Pythonから取得したピクセルリスト
+        private PythonRunner _pythonRunner;// Pythonを実行するクラス
         [SerializeField] private float _debagSpeedRate;// デバッグ時のスピード倍率
 
         private void Awake()
@@ -54,6 +56,7 @@ namespace Hinano
         void Start()
         {
             _poolManager = this.gameObject;
+            _pythonRunner = new PythonRunner();
             SampleInitialize();// サンプルのピクセルリストを初期化
             InitializePixelList(32, 32);// ピクセルリストを初期化
             SelectPixelList();// ピクセルリストを選択
@@ -73,7 +76,7 @@ namespace Hinano
             // エンターキーでピクセルリストを切り替え&ピクセルアートを生成
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                _pixeListNum = (++_pixeListNum) % 4;
+                // _pixeListNum = (++_pixeListNum) % 4;
                 SelectPixelList();
                 DeactiveAllPixels();
                 StartCoroutine(CreatePixelArtCoroutine());
@@ -86,8 +89,8 @@ namespace Hinano
         /// </summary>
         private void ResetCubeParam()
         {
-            _width = _pixelList.GetLength(1);// ピクセルアートの横幅を取得
-            _height = _pixelList.GetLength(0);// ピクセルアートの縦幅を取得
+            _width = _pythonPixelList.GetLength(1);// ピクセルアートの横幅を取得
+            _height = _pythonPixelList.GetLength(0);// ピクセルアートの縦幅を取得
 
             // ピクセルアートを生成するのにかかる時間
             _pixelArtCompleteTime = 8 * (int)Math.Log(Math.Sqrt(_width * _height) * (1 / _debagSpeedRate), 2);
@@ -226,6 +229,9 @@ namespace Hinano
                 case 3:
                     _pixelList = _samplePixelList4;
                     break;
+                case 5:
+                    _pythonPixelList = _pythonRunner.Run();
+                    break;
                 default:
                     _pixelList = _samplePixelList1;
                     break;
@@ -297,26 +303,51 @@ namespace Hinano
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    char pixelChar = _pixelList[y, x];
-                    Color color = Colors.WHITE;
-
-                    switch (pixelChar)
+                    Color color;
+                    if (_pixeListNum == 5)
                     {
-                        case 'r': color = Colors.RED; break;
-                        case 'g': color = Colors.GREEN; break;
-                        case 'b': color = Colors.BLUE; break;
-                        case 'w': color = Colors.WHITE; break;
-                        case 'k': color = Colors.BLACK; break;
-                        case 'o': color = Colors.ORANGE; break;
-                        case 'p': color = Colors.PURPLE; break;
-                        case 'l': color = Colors.LIGHT_GREEN; break;
-                        case 'y': color = Colors.YELLOW; break;
-                        case 'm': color = Colors.MAGENTA; break;
-                        case 'c': color = Colors.CYAN; break;
-                        case 'P': color = Colors.PINK; break;
-                        case 'G': color = Colors.GREY; break;
-                        case 'B': color = Colors.LIGHT_BLUE; break;
+                        string pixelString = _pythonPixelList[y, x];
+                        color = Colors.WHITE;
+
+                        switch (pixelString)
+                        {
+                            case "[31m???": color = Colors.RED; break;
+                            case "[32m???": color = Colors.GREEN; break;
+                            case "[34m???": color = Colors.BLUE; break;
+                            case "[37m???": color = Colors.WHITE; break;
+                            case "[30m???": color = Colors.BLACK; break;
+                            case "[38;5;214m???": color = Colors.ORANGE; break;
+                            case "[35m???": color = Colors.PURPLE; break;
+                            case "[38;5;190m???": color = Colors.LIGHT_GREEN; break;
+                            case "[33m???": color = Colors.YELLOW; break;
+                            case "[38;5;206m???": color = Colors.PINK; break;
+                            case "[36m???": color = Colors.LIGHT_BLUE; break;
+                        }
                     }
+                    else
+                    {
+                        char pixelChar = _pixelList[y, x];
+                        color = Colors.WHITE;
+
+                        switch (pixelChar)
+                        {
+                            case 'r': color = Colors.RED; break;
+                            case 'g': color = Colors.GREEN; break;
+                            case 'b': color = Colors.BLUE; break;
+                            case 'w': color = Colors.WHITE; break;
+                            case 'k': color = Colors.BLACK; break;
+                            case 'o': color = Colors.ORANGE; break;
+                            case 'p': color = Colors.PURPLE; break;
+                            case 'l': color = Colors.LIGHT_GREEN; break;
+                            case 'y': color = Colors.YELLOW; break;
+                            case 'm': color = Colors.MAGENTA; break;
+                            case 'c': color = Colors.CYAN; break;
+                            case 'P': color = Colors.PINK; break;
+                            case 'G': color = Colors.GREY; break;
+                            case 'B': color = Colors.LIGHT_BLUE; break;
+                        }
+                    }
+
 
                     ActivatePixel(x, y, color);
                     yield return new WaitForSeconds(_delayTime);

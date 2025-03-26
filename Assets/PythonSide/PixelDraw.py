@@ -27,16 +27,23 @@ if __name__ == "__main__":
     i = PINK + "■" + RESET
     j = LIGHT_GREEN + "■" + RESET
 
-    #リスト化
-    ab=[a,a,a,b,b,b,c,c,c]
-    bc=[a,a,a,b,b,b,c,c,c]
-    cd=[a,a,a,b,b,b,c,c,c]
-    de=[a,a,a,b,b,b,c,c,c]
-    ef=[a,a,a,b,b,b,c,c,c]
+    # ピクセルアート格納用の二次元配列を定義
+    list_width = 8
+    list_height = 7
+    pixel_art = [[e]*list_width]*list_height # 12x18 の白いピクセルアート
 
-    #表示
-    print(''.join(ab))
-    print(''.join(bc))
-    print(''.join(cd))
-    print(''.join(de))
-    print(''.join(ef))
+    #リスト化
+    pixel_art[0] = [a,a,a,a,a,a,a,a]
+    pixel_art[1] = [b,b,b,b,b,b,b,b]
+    pixel_art[2] = [c,c,c,c,c,c,c,c]
+    pixel_art[3] = [d,d,d,d,d,d,d,d]
+    pixel_art[4] = [e,e,e,e,e,e,e,e]
+    pixel_art[5] = [f,f,f,f,f,f,f,f]
+    pixel_art[6] = [g,g,g,g,g,g,g,g]
+
+    # ピクセルアートを表示
+    for i in range(len(pixel_art)):
+        for j in range(len(pixel_art[i])):
+            print(''.join(pixel_art[i][j]), end="")
+        print()
+        
