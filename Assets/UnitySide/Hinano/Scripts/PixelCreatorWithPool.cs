@@ -56,10 +56,6 @@ namespace Hinano
             _poolManager = this.gameObject;
             _pythonRunner = new PythonRunner();
             _pixelArtList = new List<PixelArt>();
-<<<<<<< HEAD
-=======
-            _poolManager = this.gameObject;
-            _pythonRunner = new PythonRunner();
             SelectPixelList();// ピクセルリストを選択
             ResetCubeParam();// キューブのパラメータをリセット
         }
