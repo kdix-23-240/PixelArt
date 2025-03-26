@@ -75,28 +75,6 @@ namespace Hinano
                 DeactiveAllPixels();
                 StartCoroutine(CreatePixelArtCoroutine());
             }
-            if(Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                DeactiveAllPixels();
-                ShowRandomPixelArt();
-            }
-        }
-
-        /// <summary>
-        /// ピクセルリストを初期化
-        /// ピクセルリストのサイズを指定して、全ての要素を初期化する
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="defaultChar"></param>
-        private void InitializePixelList(int width, int height, char defaultChar = 'w')
-        {
-            _pixelList = new char[height, width];
-            for (int y = 0; y < height; y++)
-            {
-                DeactiveAllPixels();
-                ShowRandomPixelArt();
-            }
         }
 
         /// <summary>
